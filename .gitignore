@@ -12,7 +12,7 @@
 # next.js
 /.next/
 /out/
-pages/api/auth
+
 
 # production
 /build
