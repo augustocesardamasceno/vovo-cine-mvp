@@ -1,3 +1,4 @@
+import Link from "next/link"
 
 interface MobileMenuProps {
     visible: boolean
@@ -14,10 +15,10 @@ export default function MobileMenu({ visible }: MobileMenuProps) {
             <div className='flex flex-col gap-4'>
 
                 <div className='px-3 text-center text-white hover:underline'>
-                    <a href="/">Início</a>
+                    <Link href="/">Início</Link>
                 </div>
                 <div className='px-3 text-center text-white hover:underline' >
-                    <a href="/buscar">Buscar Filmes</a>
+                    <Link href="/buscar">Buscar Filmes</Link>
                 </div>
                 
 

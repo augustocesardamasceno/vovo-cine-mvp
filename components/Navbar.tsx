@@ -4,6 +4,7 @@ import { BsBell, BsChevronDown, BsSearch } from 'react-icons/bs'
 import NavbarItem from '@/components/NavbarItem'
 import MobileMenu from '@/components/MobileMenu'
 import AccountMenu from '@/components/AccountMenu'
+import Link from 'next/link'
 
 const TOP_OFFSET = 66
 
@@ -72,9 +73,9 @@ const Navbar = () => {
                 </div>
                 <div className='flex flex-row ml-auto gap-7 items-center'>
                     <div className='text-gray-200 hover:text-gray-300 cursor-pointer transition'>
-                        <a href="/buscar"><BsSearch /></a>
+                        <Link href="/buscar"><BsSearch /></Link>
                     </div>
-                    <div className='text-gray-200 hover:text-gray-300 cursor-pointer transition'>
+                    <div className='hidden text-gray-200 hover:text-gray-300 cursor-pointer transition'>
                         <BsBell />
                     </div>
 
