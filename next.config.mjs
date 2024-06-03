@@ -1,15 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  async redirects() {
-    return [
-      {
-        source: '/api/auth/callback/google',
-        destination: '/api/auth/callback/google',
-        permanent: true,
-      },
-    ]
-  },
   async headers() {
     return [
       {
@@ -29,7 +20,7 @@ const nextConfig = {
           },
         ],
       },
-    ]
+    ];
   },
   experimental: {
     serverActions: true,
