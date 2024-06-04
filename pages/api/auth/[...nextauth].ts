@@ -14,7 +14,12 @@ export const authOptions: AuthOptions = {
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      authorization: {
+        params: {
+          redirect_uri: 'https://main.d2eil3kqvit9pl.amplifyapp.com/api/auth/callback/google',
+        },
+      },
     }),
     CredentialsProvider({
       id: 'credentials',
