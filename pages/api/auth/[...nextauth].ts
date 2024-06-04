@@ -61,15 +61,12 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async redirect({ url, baseUrl }) {
       const baseUrlEnv = process.env.NEXTAUTH_URL || baseUrl;
-      console.log('Redirect URL:', url);
-      console.log('Base URL:', baseUrl);
-      console.log('Base URL from Env:', baseUrlEnv);
-
       if (url.startsWith('/')) return `${baseUrlEnv}${url}`;
       else if (new URL(url).origin === baseUrlEnv) return url;
       return baseUrlEnv;
     }
   }
+  
 };
 
 export default NextAuth(authOptions);

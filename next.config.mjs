@@ -10,4 +10,6 @@ const nextConfig = {
   },
 };
 
+console.log("NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
+
 export default nextConfig;
