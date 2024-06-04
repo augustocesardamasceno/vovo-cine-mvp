@@ -60,9 +60,14 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async redirect({ url, baseUrl }) {
-      if (url.startsWith('/')) return `${baseUrl}${url}`;
-      else if (new URL(url).origin === baseUrl) return url;
-      return baseUrl;
+      const baseUrlEnv = process.env.NEXTAUTH_URL || baseUrl;
+      console.log('Redirect URL:', url);
+      console.log('Base URL:', baseUrl);
+      console.log('Base URL from Env:', baseUrlEnv);
+
+      if (url.startsWith('/')) return `${baseUrlEnv}${url}`;
+      else if (new URL(url).origin === baseUrlEnv) return url;
+      return baseUrlEnv;
     }
   }
 };
