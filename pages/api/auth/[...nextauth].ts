@@ -6,11 +6,11 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prismadb from '@/lib/prismadb';
 import { compare } from 'bcrypt';
 
-const nextAuthOptions: AuthOptions = {
+export const authOptions: AuthOptions = {
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
+      clientSecret: process.env.GITHUB_SECRET
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -26,7 +26,7 @@ const nextAuthOptions: AuthOptions = {
       name: 'Credentials',
       credentials: {
         email: { label: 'Email', type: 'text' },
-        password: { label: 'Password', type: 'password' },
+        password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -34,28 +34,25 @@ const nextAuthOptions: AuthOptions = {
         }
 
         const user = await prismadb.user.findUnique({
-          where: { email: credentials.email },
+          where: { email: credentials.email }
         });
 
         if (!user || !user.hashedPassword) {
           throw new Error('Email does not exist');
         }
 
-        const isCorrectPassword = await compare(
-          credentials.password,
-          user.hashedPassword,
-        );
+        const isCorrectPassword = await compare(credentials.password, user.hashedPassword);
 
         if (!isCorrectPassword) {
           throw new Error('Incorrect password');
         }
 
         return user;
-      },
-    }),
+      }
+    })
   ],
   pages: {
-    signIn: '/auth',
+    signIn: '/auth'
   },
   debug: process.env.NODE_ENV === 'development',
   adapter: PrismaAdapter(prismadb),
@@ -68,12 +65,13 @@ const nextAuthOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async redirect({ url, baseUrl }) {
-      const redirectUrl = 'https://main.d2eil3kqvit9pl.amplifyapp.com';
-      if (url.startsWith('/')) return `${redirectUrl}${url}`;
-      else if (new URL(url).origin === redirectUrl) return url;
-      return redirectUrl;
-    },
-  },
+        const redirectUrl = 'https://main.d2eil3kqvit9pl.amplifyapp.com';
+        if (url.startsWith('/')) return `${redirectUrl}${url}`;
+        else if (new URL(url).origin === redirectUrl) return url;
+        return redirectUrl;
+    }
+  }
+  
 };
 
-export default NextAuth(nextAuthOptions);
+export default NextAuth(authOptions);
