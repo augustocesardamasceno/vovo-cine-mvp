@@ -43,7 +43,7 @@ export default function Auth() {
                 email,
                 password,
                 redirect: false,
-                callbackUrl: '/',
+                callbackUrl: `${process.env.NEXTAUTH_URL}/profiles`,
             })
 
             router.push('/profiles')
