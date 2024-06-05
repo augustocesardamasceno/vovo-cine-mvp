@@ -1,3 +1,5 @@
+// pages/api/auth/[...nextauth].ts
+
 import NextAuth, { AuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
@@ -17,7 +19,7 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       authorization: {
         params: {
-          redirect_uri: 'https://main.d2eil3kqvit9pl.amplifyapp.com/api/auth/callback/google',
+          redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/google`,
         },
       },
     }),
@@ -65,13 +67,12 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async redirect({ url, baseUrl }) {
-        const redirectUrl = 'https://main.d2eil3kqvit9pl.amplifyapp.com';
+        const redirectUrl = process.env.NEXTAUTH_URL;
         if (url.startsWith('/')) return `${redirectUrl}${url}`;
         else if (new URL(url).origin === redirectUrl) return url;
         return redirectUrl;
     }
   }
-  
 };
 
 export default NextAuth(authOptions);
