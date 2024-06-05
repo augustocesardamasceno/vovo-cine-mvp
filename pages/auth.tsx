@@ -46,7 +46,7 @@ export default function Auth() {
                 callbackUrl: `${process.env.NEXTAUTH_URL}/profiles`,
             })
 
-            router.push('/profiles')
+            router.push( `${process.env.NEXTAUTH_URL}/profiles`)
         } catch (error) {
             console.log(error)
         }
@@ -54,7 +54,7 @@ export default function Auth() {
 
     const register = useCallback(async () => {
         try {
-            await axios.post('/api/register', {
+            await axios.post(`${process.env.NEXTAUTH_URL}/api/register`, {
                 email,
                 name,
                 password
